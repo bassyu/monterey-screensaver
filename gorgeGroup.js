@@ -2,10 +2,10 @@ import { Gorge } from "./gorge.js";
 
 export class GorgeGroup {
   constructor() {
-    this.totalGorges = 1;
-    this.totalPoints = 8;
+    this.totalGorges = 3;
+    this.totalPoints = 12;
 
-    this.color = ['rgba(0,199,235,0.4)', 'rgba(0,146,199,0.4)', 'rgba(0,87,158,0.4)'];
+    this.color = ['rgb(200,100,160)', 'rgba(0,146,199,0.4)', 'rgba(0,87,158,0.4)'];
 
     this.gorges = [];
 
@@ -13,6 +13,7 @@ export class GorgeGroup {
       const gorge = new Gorge(
         i,
         this.totalPoints,
+        this.totalGorges,
         this.color[i]
       );
       this.gorges[i] = gorge;

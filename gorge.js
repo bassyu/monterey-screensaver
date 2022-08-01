@@ -1,11 +1,12 @@
 import { GorgePoint } from "./gorgePoint.js";
 
 export class Gorge{
-  constructor(index, totalPoints, color){
-    this.index = index
-    this.totalPoints = totalPoints
-    this.color = color
-    this.points = []
+  constructor(index, totalPoints, totalGorges, color){
+    this.index = index;
+    this.totalPoints = totalPoints;
+    this.totalGorges = totalGorges;
+    this.color = color;
+    this.points = [];
   }
 
   resize(stageWidth, stageHeight) {
@@ -16,6 +17,7 @@ export class Gorge{
     this.centerY = stageHeight / 2;
 
     this.pointGap = this.stageWidth / (this.totalPoints - 1);
+    this.gorgeGap = this.stageHeight / (this.totalGorges);
 
     this.init();
   }
@@ -25,11 +27,11 @@ export class Gorge{
 
     for (let i = 0; i < this.totalPoints; i++) {
       const point = new GorgePoint(
-        this.index + i,
-        this.pointGap * i,
-        -0.002,
+        i,
         this.centerX,
-        this.centerY*3/2
+        this.centerY + this.gorgeGap * this.index,
+        this.pointGap,
+        this.gorgeGap
       );
 
       this.points[i] = point;
@@ -45,7 +47,9 @@ export class Gorge{
 
     ctx.moveTo(prevX, prevY);
 
-    for (let i = 1; i < this.totalPoints; i++) {
+    for (let i = 0; i < this.totalPoints; i++) {
+      this.points[i].update()
+
       const cx = (prevX + this.points[i].x) / 2;
       const cy = (prevY + this.points[i].y) / 2;
 
