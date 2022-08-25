@@ -12,8 +12,8 @@ export class GorgeGroup {
     for (let i = 0; i < this.totalGorges; i++) {
       const gorge = new Gorge(
         i,
-        this.totalPoints,
         this.totalGorges,
+        this.totalPoints,
         this.color[i]
       );
       this.gorges[i] = gorge;
