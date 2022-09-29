@@ -15,7 +15,7 @@ export class Gorge {
     this.centerX = stageWidth / 2;
     this.centerY = stageHeight / 2;
 
-    this.gorgeGap = stageHeight / (this.totalGorges);
+    this.gorgeGap = stageHeight / (this.totalGorges - 2);
     this.pointGap = this.stageWidth / (this.totalPoints - 1);
 
     const startY = this.gorgeGap * this.index

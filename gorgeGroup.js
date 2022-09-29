@@ -2,7 +2,7 @@ import { Gorge } from "./gorge.js";
 
 export class GorgeGroup {
   constructor() {
-    this.totalGorges = 6;
+    this.totalGorges = 10;
     this.totalPoints = 12;
 
     this.color = ['rgb(200,100,160)', 'rgba(0,146,199,0.4)', 'rgba(0,87,158,0.4)'];
