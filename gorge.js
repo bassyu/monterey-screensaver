@@ -1,42 +1,35 @@
-import { Point } from "./gorgePoint.js";
+import { GorgePoint } from "./gorgePoint.js";
 
 export class Gorge {
-  constructor(ctx, totalPoints) {
-    console.log('gorge.const')
-
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
-    document.body.append(this.canvas);
-
+  constructor(index, totalGorges, totalPoints) {
+    this.index = index;
+    this.totalGorges = totalGorges;
     this.totalPoints = totalPoints;
     this.points = [];
-
-    this.resize();
-    console.log(this.points);
   }
 
-  init(stageWidth, stageHeight) {
-    console.log('gorge.init')
-
+  resize(stageWidth, stageHeight) {
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
 
-    console.log(this.stageWidth, this.stageHeight);
+    this.centerX = stageWidth / 2;
+    this.centerY = stageHeight / 2;
 
-    this.canvas.width = this.stageWidth * 2;
-    this.canvas.height = this.stageHeight * 2;
-
-    this.centerX = this.stageWidth / 2;
-    this.centerY = this.stageHeight / 2;
-
+    this.gorgeGap = stageHeight / (this.totalGorges);
     this.pointGap = this.stageWidth / (this.totalPoints - 1);
 
+    const startY = this.gorgeGap * this.index
+    this.init(startY);
+  }
+
+  init(startY) {
     this.points = [];
     for (let i = 0; i < this.totalPoints; i++) {
-      const point = new Point(
+      const point = new GorgePoint(
         i,
         this.centerX,
-        this.centerY,
+        this.centerY + startY,
+        this.gorgeGap,
         this.pointGap
       );
 
@@ -66,15 +59,15 @@ export class Gorge {
     return `rgba(${r}, ${g}, ${b}, ${a})`;
   }
 
-  draw() {
-    this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-    this.ctx.beginPath();
-    this.ctx.fillStyle = this.getRGB(this.points[0].y);
+
+  draw(ctx) {
+    ctx.beginPath();
+    ctx.fillStyle = this.getRGB(this.points[0].y);
 
     let prevX = this.points[0].x;
     let prevY = this.points[0].y;
 
-    this.ctx.moveTo(prevX, prevY);
+    ctx.moveTo(prevX, prevY);
 
     for (let i = 0; i < this.totalPoints; i++) {
       this.points[i].update();
@@ -82,20 +75,21 @@ export class Gorge {
       const cx = (prevX + this.points[i].x) / 2;
       const cy = (prevY + this.points[i].y) / 2;
 
-      this.ctx.quadraticCurveTo(prevX, prevY, cx, cy);
-      //this.ctx.lineTo(cx, cy);
+      ctx.quadraticCurveTo(prevX, prevY, cx, cy);
+      //ctx.lineTo(cx, cy);
 
       prevX = this.points[i].x;
       prevY = this.points[i].y;
     }
 
-    this.ctx.lineTo(prevX, prevY);
-    this.ctx.lineTo(this.stageWidth, this.stageHeight);
-    this.ctx.lineTo(this.points[0].x, this.stageHeight);
-    this.ctx.fill();
-    this.ctx.closePath();
-    
-    //
-    console.log(this.points[0].y);
+    ctx.lineTo(prevX, prevY);
+    ctx.lineTo(this.stageWidth, this.stageHeight);
+    ctx.lineTo(this.points[0].x, this.stageHeight);
+    ctx.fill();
+    ctx.closePath();
+
+    if (this.points[0].y >= this.stageHeight) {
+      this.init(0);
+    }
   }
 }

@@ -2,24 +2,33 @@ import { GorgeGroup } from "./gorgeGroup.js";
 
 class App {
   constructor() {
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
+    document.body.appendChild(this.canvas);
+
     this.gorgeGroup = new GorgeGroup();
 
     window.addEventListener('resize', this.resize.bind(this), false);
-    this.init();
+    this.resize();
 
     window.requestAnimationFrame(this.animate.bind(this));
   }
 
-  init() {
-    console.log('app.resize');
+  resize() {
     this.stageWidth = document.body.clientWidth;
     this.stageHeight = document.body.clientHeight;
 
-    this.gorgeGroup.init(this.stageWidth, this.stageHeight);
+    this.canvas.width = this.stageWidth * 2;
+    this.canvas.height = this.stageHeight * 2;
+    this.ctx.scale(2, 2);
+
+    this.gorgeGroup.resize(this.stageWidth, this.stageHeight);
   }
 
   animate(t) {
-    this.gorgeGroup.draw();
+    this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
+
+    this.gorgeGroup.draw(this.ctx);
 
     requestAnimationFrame(this.animate.bind(this));
   }
