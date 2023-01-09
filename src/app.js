@@ -1,4 +1,4 @@
-import { GorgeGroup } from "./gorgeGroup.js";
+import { GorgeGroup } from './gorgeGroup.js';
 
 class App {
   constructor() {
@@ -36,4 +36,4 @@ class App {
 
 window.onload = () => {
   new App();
-}
+};

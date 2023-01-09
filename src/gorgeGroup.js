@@ -1,4 +1,4 @@
-import { Gorge } from "./gorge.js";
+import { Gorge } from './gorge.js';
 
 export class GorgeGroup {
   constructor() {
@@ -10,11 +10,7 @@ export class GorgeGroup {
     this.gorges = [];
 
     for (let i = 0; i < this.totalGorges; i++) {
-      const gorge = new Gorge(
-        i,
-        this.totalGorges,
-        this.totalPoints,
-      );
+      const gorge = new Gorge(i, this.totalGorges, this.totalPoints);
       this.gorges[i] = gorge;
     }
   }
@@ -36,10 +32,10 @@ export class GorgeGroup {
     }
 
     const bottomGorge = this.gorges[0];
-    const bottomY = bottomGorge.points[0].y
+    const bottomY = bottomGorge.points[0].y;
 
     if (bottomY > this.stageWidth) {
-      1
+      1;
     }
   }
 }

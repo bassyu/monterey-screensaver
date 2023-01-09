@@ -5,9 +5,9 @@ export class GorgePoint {
     this.centerY = centerY;
     this.gorgeGap = gorgeGap;
     this.pointGap = pointGap;
-    
+
     this.x = this.pointGap * this.index;
-    this.y = this.centerY - Math.abs(this.x - this.centerX) + Math.random()*200;
+    this.y = this.centerY - Math.abs(this.x - this.centerX) + Math.random() * 200;
     this.speed = 0.8;
     console.log(this.x, this.y);
   }

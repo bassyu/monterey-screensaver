@@ -1,4 +1,4 @@
-import { GorgePoint } from "./gorgePoint.js";
+import { GorgePoint } from './gorgePoint.js';
 
 export class Gorge {
   constructor(index, totalGorges, totalPoints) {
@@ -18,7 +18,7 @@ export class Gorge {
     this.gorgeGap = stageHeight / (this.totalGorges - 2);
     this.pointGap = this.stageWidth / (this.totalPoints - 1);
 
-    const startY = this.gorgeGap * this.index
+    const startY = this.gorgeGap * this.index;
     this.init(startY);
   }
 
@@ -46,11 +46,11 @@ export class Gorge {
     }
 
     startRGB = [228, 76, 164];
-    endRGB = [16,	4, 52];
+    endRGB = [16, 4, 52];
     const getColor = (i) => {
-      const color = startRGB[i] - parseInt(y * (startRGB[i] - endRGB[i]) / this.stageHeight);
+      const color = startRGB[i] - parseInt((y * (startRGB[i] - endRGB[i])) / this.stageHeight);
       return color;
-    }
+    };
 
     const r = getColor(0);
     const g = getColor(1);
@@ -58,7 +58,6 @@ export class Gorge {
 
     return `rgba(${r}, ${g}, ${b}, ${a})`;
   }
-
 
   draw(ctx) {
     ctx.beginPath();
